@@ -6,7 +6,7 @@ extends EditorPlugin
 var export_plugin : AndroidExportPlugin
 const FIREBASE_DEPENDENCIES := """\n    \
 //Firebase dependencies\n    \
-implementation platform("com.google.firebase:firebase-bom:32.7.0")\n    \
+implementation platform("com.google.firebase:firebase-bom:33.1.2")\n    \
 implementation "com.google.firebase:firebase-analytics"\n    \
 implementation "com.google.android.gms:play-services-measurement-api:21.5.0"
 """
@@ -16,7 +16,7 @@ id 'com.google.gms.google-services'
 """
 const FIREBASE_PLUGINS_ROOT := """\n        \
 //Firebase plugins\n        \
-id 'com.google.gms.google-services' version '4.3.10' apply false
+id 'com.google.gms.google-services' version '4.4.2' apply false
 """
 
 
@@ -37,7 +37,7 @@ func _exit_tree():
 
 func _disable_plugin() -> void:
 	_cleanup_plugin()
-	
+
 static func _cleanup_plugin() -> void:
 	if FileAccess.file_exists("res://android/build/build.gradle"):
 		var file := FileAccess.open("res://android/build/build.gradle", FileAccess.READ)
@@ -47,7 +47,7 @@ static func _cleanup_plugin() -> void:
 		file = FileAccess.open("res://android/build/build.gradle", FileAccess.WRITE)
 		file.store_string(file_text)
 		file.close()
-	
+
 	if FileAccess.file_exists("res://android/build/settings.gradle"):
 		var file := FileAccess.open("res://android/build/settings.gradle", FileAccess.READ)
 		var file_text := file.get_as_text()
@@ -60,7 +60,7 @@ static func _cleanup_plugin() -> void:
 
 class AndroidExportPlugin extends EditorExportPlugin:
 	var _plugin_name = "FirebaseAnalyticsGodotPlugin"
-	
+
 	func _export_begin(features: PackedStringArray, is_debug: bool, path: String, flags: int) -> void:
 		if features.has("android"):
 			if not get_option("gradle_build/use_gradle_build")\
@@ -83,7 +83,7 @@ class AndroidExportPlugin extends EditorExportPlugin:
 				file = FileAccess.open("res://android/build/build.gradle", FileAccess.WRITE)
 				file.store_string(file_text)
 				file.close()
-			
+
 			file = FileAccess.open("res://android/build/settings.gradle", FileAccess.READ)
 			file_text = file.get_as_text()
 			file.close()
